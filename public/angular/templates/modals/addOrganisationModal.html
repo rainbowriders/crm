@@ -1,0 +1,29 @@
+<form role="form" class="form-horizontal" novalidate angular-validator angular-validator-submit="ok()" name="addOrganisationForm">
+    <div class="modal-header">
+        <h3 ng-cloak>{{::translation.ADD_NEW_ORGANISATION}}</h3>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="carousel slide panel-body" id="c-slide">
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.NAME}}</label>
+                <input ng-cloak type="text" name="organisation_name" class="form-control" ng-model="name" required validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'">
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.ADDRESS}}</label>
+                <input  ng-cloak type="text" name="organisation_address" class="form-control" ng-model="address" validate-on="dirty">
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.ZIP}}</label>
+                <input type="text" name="organisation_zip" class="form-control" ng-model="zip" validate-on="dirty">
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.CITY}}</label>
+                <input type="text" name="organisation_city" class="form-control" ng-model="city" validate-on="dirty">
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="cancel()" ng-cloak>{{::translation.CANCEL}}</button>
+        <button class="btn btn-success" type="submit" ng-cloak>{{::translation.SAVE}}</button>
+    </div>
+</form>

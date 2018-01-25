@@ -1,0 +1,143 @@
+<section class="hbox stretch" ng-controller="ContactsController">
+	<section id="content">
+		<section class="hbox stretch">
+			<section>
+				<section class="vbox">
+					<section class="no-padder">
+						<section class="hbox padder">
+							<a href="javascript:" class="btn btn-default btn-md col-md-2" ng-click="openAddContact()"><i class="fa fa-plus text-success"></i> <span class="text-success" ng-cloak>{{translation.ADD_NEW_CONTACT}}</span></a>
+							<div class="col-md-4">
+								<input clear-input type="text" ng-model="searchPattern" ng-change="searchInContacts()" class="form-control" placeholder="{{translation.SEARCH}}..." style="display: inline-block;width: 98%">
+								<i class="fa fa-times" ng-click="clearSearchField()"  id="clear-search-field-btn" ng-show="searchPattern.length > 0"></i>
+							</div>
+							 <!-- <div class="col-md-6">                               
+                                <div class="btn-group" style="margin-left: 30px;">
+                                    <label class="btn btn-default pull-right" ng-model="statuses.favorites" btn-checkbox ng-change="getFavorites()" ng-cloak ng-mouseover="BtnFavImg='yellow-star.png'"  ng-mouseleave="BtnFavImg='empty-star.png'"> 
+                                        <span ng-if="statuses.favorites" class="text-danger" style="margin-right: 10px;"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                        <span ng-if="!statuses.favorites" class="text-success" style="margin-right: 10px;"><img class="favorite-star" 
+                                        ng-src="../../../images/{{BtnFavImg}}"></span>{{::translation.FAVORITES_BTN}}
+                                    </label>
+                                </div>  
+                            </div> -->
+						</section>
+						<section id="contacts-table-container" class="vbox"  ts-wrapper>
+							<header id="contacts-table-header">
+								<ul>
+									<li ts-criteria="name | lowercase" ts-default="{{elementsOrderType.name}}" ng-if="lastSortedOrder.name == true" ng-click="setHeadersColSortingStyles('name')" style="{{elementsStyle.name}}"
+                                    ng-mouseover="headerCol='name'" ng-mouseleave="headerCol=null">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'name' && elementsOrderType.name == 'descending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'name' && elementsOrderType.name == 'ascending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'ascending') "></i>{{translation.NAME}}
+                                	</li>
+                                	<li ts-criteria="name | lowercase" ng-if="lastSortedOrder.name == false" ng-click="setHeadersColSortingStyles('name')" style="{{elementsStyle.name}}"
+                                    ng-mouseover="headerCol='name'" ng-mouseleave="headerCol=null">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'name' && elementsOrderType.name == 'descending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'name' && elementsOrderType.name == 'ascending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'ascending') "></i>{{translation.NAME}}
+                                	</li>
+
+									<li ts-criteria="email | lowercase" ng-if="lastSortedOrder.email == false" ng-click="setHeadersColSortingStyles('email')" style="{{elementsStyle.email}}"
+                                    ng-mouseover="headerCol='email'" ng-mouseleave="headerCol=null" id="email">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'email' && elementsOrderType.email == 'descending') || 
+                                        (selectedCol == 'email' && elementsOrderType.email == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'email' && elementsOrderType.email == 'ascending') || 
+                                        (selectedCol == 'email' && elementsOrderType.email == 'ascending') "></i>{{translation.EMAIL}}
+                                	</li>
+                                	<li ts-criteria="email | lowercase" ng-if="lastSortedOrder.email == true" ts-default="{{elementsOrderType.email}}" ng-click="setHeadersColSortingStyles('email')" style="{{elementsStyle.email}}"
+                                    ng-mouseover="headerCol='email'" ng-mouseleave="headerCol=null" id="email">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'email' && elementsOrderType.email == 'descending') || 
+                                        (selectedCol == 'email' && elementsOrderType.email == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'email' && elementsOrderType.email == 'ascending') || 
+                                        (selectedCol == 'email' && elementsOrderType.email == 'ascending') "></i>{{translation.EMAIL}}
+                                	</li>
+
+									<li ts-criteria="organisation.name | lowercase" ng-if="lastSortedOrder.organisation == false" ng-click="setHeadersColSortingStyles('organisation')" style="{{elementsStyle.organisation}}"
+                                    ng-mouseover="headerCol='organisation'" ng-mouseleave="headerCol=null">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'descending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'ascending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'ascending') "></i>{{translation.ORGANISATION}}
+                                	</li>
+									<li ts-criteria="organisation.name | lowercase" ng-if="lastSortedOrder.organisation == true" ts-default="{{elementsOrderType.organisation}}" ng-click="setHeadersColSortingStyles('organisation')" style="{{elementsStyle.organisation}}"
+                                    ng-mouseover="headerCol='organisation'" ng-mouseleave="headerCol=null">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'descending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'ascending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'ascending') "></i>{{translation.ORGANISATION}}
+                                	</li>
+
+									<li ts-criteria="phone" ng-if="lastSortedOrder.phone == false" ng-click="setHeadersColSortingStyles('phone')" style="{{elementsStyle.phone}}"
+                                    ng-mouseover="headerCol='phone'" ng-mouseleave="headerCol=null">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'phone' && elementsOrderType.phone == 'descending') || 
+                                        (selectedCol == 'phone' && elementsOrderType.phone == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'phone' && elementsOrderType.phone == 'ascending') || 
+                                        (selectedCol == 'phone' && elementsOrderType.phone == 'ascending') "></i>{{translation.PHONE}}
+                                	</li>
+                                	<li ts-criteria="phone" ng-if="lastSortedOrder.phone == true" ng-click="setHeadersColSortingStyles('phone')" style="{{elementsStyle.phone}}"
+                                    ng-mouseover="headerCol='phone'" ng-mouseleave="headerCol=null" ts-default="{{elementsOrderType.phone}}">
+										<i class="fa fa-caret-up" ng-show="(headerCol == 'phone' && elementsOrderType.phone == 'descending') || 
+                                        (selectedCol == 'phone' && elementsOrderType.phone == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'phone' && elementsOrderType.phone == 'ascending') || 
+                                        (selectedCol == 'phone' && elementsOrderType.phone == 'ascending') "></i>{{translation.PHONE}}
+                                	</li>
+								</ul>
+							</header>
+							<section class="scrollable padder m-t-sm m-b-sm w-f-md" id="scrollContainer"
+                            >
+                                <div infinite-scroll-container="'#scrollContainer'" infinite-scroll="loadMore()" infinite-scroll-distance="5" id="contacts-table-body" style="{{tableWidth}}">
+									<ul ng-repeat="contact in contacts" ts-repeat ng-click="openEditContact(contact)">
+										<li>{{contact.name}}</li>
+										<li>{{contact.email}}</li>
+										<li>{{contact.organisation.name}}</li>
+										<li>{{contact.phone}}</li>
+									</ul>
+                                </div>
+                            </section>
+						<!-- 	<section class="scrollable padder m-t-sm m-b-sm w-f-md" id="scrollContainer">
+								<section class="panel panel-default clearfix" >
+									<div class="table-responsive" infinite-scroll-container="'#scrollContainer'" infinite-scroll="loadMore()" infinite-scroll-distance="10">
+										<table class="table table-hover b-t b-light" ts-wrapper>
+											<thead>
+												<tr class="bg-light">
+													<th ts-criteria="name | lowercase" ts-default ng-cloak>{{translation.NAME}}</th>
+													<th ts-criteria="email | lowercase" ng-cloak>{{translation.EMAIL}}</th>
+													<th ts-criteria="organisation.name | lowercase" ng-cloak>{{translation.ORGANISATION}}</th>
+													<th ts-criteria="phone" ng-cloak>{{translation.PHONE}}</th> -->
+													<!-- <th ts-criteria="isFavorite"></th> -->
+							<!-- 					</tr>
+											</thead>
+											<tbody>
+												<tr ts-repeat ng-repeat="contact in contacts" >
+													<td ng-click="openEditContact(contact)" ng-cloak>{{contact.name}}</td>
+													<td ng-click="openEditContact(contact)" ng-cloak>{{contact.email}}</td>
+													<td ng-click="openEditContact(contact)" ng-cloak>{{contact.organisation.name}}</td>
+													<td ng-click="openEditContact(contact)" ng-cloak>{{contact.phone}}</td>
+													 <td ng-click="changeFavoriteStatus(contact)" ng-mouseover="img='yellow-star.png'"  ng-mouseleave="img='empty-star.png'">
+                                                            <span ng-if="contact.isFavorite" class="text-danger"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                                            <span ng-if="!contact.isFavorite" class="text-success"><img class="favorite-star" 
+                                                            ng-src="../../../images/{{img}}"></span>
+                                                        </td>
+												</tr>
+											</tbody>
+										</table>
+									</div> -->
+									<!--
+										<div ng-repeat="contact in contacts | filter:{title:query} | orderBy:'-updated_at' | limitTo:limit" ng-click="openEditContact(contact)">
+														<span>{{contact.name}}</span>
+														<span>{{contact.email}}</span>
+														<span>{{contact.organisation.name}}</span>
+														<span>{{contact.phone}}</span>
+										</div>
+									-->
+								<!-- </section>
+							</section> -->
+						</section>
+					</section>
+				</section>
+			</section>
+		</section>
+		<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+	</section>
+</section>

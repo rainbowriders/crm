@@ -1,0 +1,14 @@
+
+
+<div class="modal-header">
+    <h3 ng-cloak>{{::translation.DELETE_COMMENT}}</h3>
+</div>
+<div class="modal-body clearfix">
+    <div class="carousel slide panel-body" id="c-slide">
+        <div class="btn-group form-group block" style="padding-top: 0px;margin-top: 8px;padding-bottom: 0px;margin-bottom: 0px; vertical-align: middle;">{{::translation.ARE_YOU_SURE}}</div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="confirmDeleteComment('no')" ng-cloak>{{::translation.CANCEL}}</button>
+        <button class="btn btn-success" ng-click="confirmDeleteComment('yes')" ng-cloak>{{::translation.YES_DELETE}}</button>
+    </div>
+</div>

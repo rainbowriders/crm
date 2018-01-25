@@ -1,0 +1,21 @@
+{
+  "name": "CRm",
+  "version": "0.0.0",
+  "homepage": "https://github.com/rainbowriders/crm-rainbowriders",
+  "authors": [
+    "YordanovBg <jordanovbiser@gmail.com>"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.4.4",
+    "angular-bootstrap": "~0.13.3",
+    "angular-extend-promises": "~1.0.0-rc.3",
+    "angular-sanitize": "~1.4.4",
+    "angular-smilies": "~1.2.1",
+    "angular-tablesort": "~1.1.0",
+    "angular-ui-router": "~0.2.15",
+    "ngInfiniteScroll": "~1.2.1",
+    "satellizer": "~0.12.2",
+    "tg-angular-validator": "~1.2.7"
+  }
+}

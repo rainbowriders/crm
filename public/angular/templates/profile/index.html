@@ -1,0 +1,95 @@
+<section class="hbox stretch"   ng:controller="ProfileController" ng-cloak>
+    <!-- .aside -->
+    <aside class="bg-white aside hidden-print m-r-n-lg" id="nav">
+        <section class="vbox">
+            <section class="scrollable">
+                <div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+                    <!-- nav -->
+                    <nav class="nav-primary hidden-xs">
+                        <ul class="nav" data-ride="collapse">
+                            <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">Coming soon </li>
+                        </ul>
+                    </nav>
+                    <!-- / nav -->
+                </div>
+            </section>
+        </section>
+    </aside>
+    <section id="content" class="padder">
+        <section class="vbox">
+            <section class="scrollable">
+                <section class="hbox stretch">
+                    <aside class="aside-lg bg-light lter b-r">
+                        <section class="vbox">
+                            <section class="scrollable">
+                                <div class="wrapper">
+                                    <div class="text-center m-b m-t">
+                                        <a href="#" class="thumb-lg"> <img ng-src="https://graph.facebook.com/{{me.facebook}}/picture?type=large" class="img-circle"> </a>
+                                        <div>
+                                            <div class="h3 m-t-xs m-b-xs">{{me.displayName}}</div>
+                                            <small class="text-muted"><i class="fa fa-map-marker"></i> London, UK</small>
+                                        </div>
+                                    </div>
+                                    <div class="panel wrapper">
+                                        <div class="row text-center">
+                                            <div class="col-xs-6">
+                                                <a href="#"> <span class="m-b-xs h4 block">245</span> <small class="text-muted">Followers</small> </a>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <a href="#"> <span class="m-b-xs h4 block">55</span> <small class="text-muted">Following</small> </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="btn-group btn-group-justified m-b">
+                                        <a class="btn btn-success btn-rounded" data-toggle="button">
+                                            <span class="text"> <i class="fa fa-eye"></i> Follow </span>
+                                            <span class="text-active"> <i class="fa fa-eye"></i> Following </span>
+                                        </a>
+                                        <a class="btn btn-dark btn-rounded"> <i class="fa fa-comment-o"></i> Chat </a>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
+                    <aside class="bg-white">
+                        <section class="vbox">
+                            <header class="header bg-light lt">
+                                <ul class="nav nav-tabs nav-white">
+                                    <li class="active"><a data-target="#activity" data-toggle="tab">Activity</a></li>
+                                    <li class=""><a data-target="#events" data-toggle="tab">Playlists</a></li>
+                                    <li class=""><a data-target="#interaction" data-toggle="tab">Movies</a></li>
+                                    <li class=""><a data-target="#interaction" data-toggle="tab">Shows</a></li>
+                                </ul>
+                            </header>
+                            <section class="scrollable">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="activity">
+                                        <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                                            <li class="list-group-item">
+                                                <a href="#" class="thumb-sm pull-left m-r-sm"> <img src="images/logo.png" class="img-circle"> </a>
+                                                <a href="#" class="clear">
+                                                    <small class="pull-right">1 hour ago</small> <strong class="block">Feature coming soon</strong> <small>Coming soon...</small>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="tab-pane" id="events">
+                                        <div class="text-center wrapper">
+                                            <i class="fa fa-spinner fa fa-spin fa fa-large"></i>
+                                        </div>
+                                    </div>
+                                    <div class="tab-pane" id="interaction">
+                                        <div class="text-center wrapper">
+                                            <i class="fa fa-spinner fa fa-spin fa fa-large"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
+                </section>
+            </section>
+        </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+    </section>
+</section>

@@ -1,0 +1,35 @@
+<form role="form" class="form-horizontal" novalidate angular-validator angular-validator-submit="ok()" name="editOrganisationForm" ng-cloak>
+    <div class="modal-header" >
+        <h3 ng-hide="confirmDeleteOrganisation">{{organisation.name}}</h3>
+        <h3 ng-show="confirmDeleteOrganisation">{{::translation.DELETE}} {{organisation.name}}</h3>
+    </div>
+    <div class="modal-body clearfix" >
+        <div class="carousel slide panel-body" id="c-slide">
+            <div class="form-group relative" ng-hide="confirmDeleteOrganisation">
+                <label>{{translation.NAME}}</label>
+                <input type="text" name="organisation_name" class="form-control" ng-model="organisation.name" required validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'">
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteOrganisation">
+                <label>{{::translation.ADDRESS}}</label>
+                <input type="text" name="organisation_address" class="form-control" ng-model="organisation.address" validate-on="dirty">
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteOrganisation">
+                <label>{{::translation.ZIP}}</label>
+                <input type="text" name="organisation_zip" class="form-control" ng-model="organisation.zip" validate-on="dirty">
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteOrganisation">
+                <label>{{::translation.CITY}}</label>
+                <input type="text" name="organisation_city" class="form-control" ng-model="organisation.city" validate-on="dirty">
+            </div>
+            <div class="btn-group form-group block" ng-show="confirmDeleteOrganisation" style="padding-top: 0px;margin-top: 8px;padding-bottom: 0px;margin-bottom: 0px; vertical-align: middle;">{{::translation.ARE_YOU_SURE}}</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a href="/leads?organisationId={{organisation.id}}" class="pull-left" ng-click="redirectToOrganisationDeals()">{{::translation.SHOW_LEADS_FOR_ORGANISATION}}</a>
+        <div ng-show="confirmDeleteOrganisation" class="btn btn-s-md btn-danger" ng-click="deleteOrganisation(false)">{{::translation.CANCEL}}</div>
+        <div ng-show="confirmDeleteOrganisation" class="btn btn-s-md btn btn-success" ng-click="deleteOrganisation(true)">{{::translation.YES_DELETE}}</div>
+        <div class="btn btn-s-md btn btn-warning" ng-hide="confirmDeleteOrganisation" ng-click="askForContactDelete()"  ng-hide="confirmDeleteOrganisation">{{::translation.DELETE}}</div>
+        <button type="button" class="btn btn-danger" ng-click="cancel()" ng-hide="confirmDeleteOrganisation">{{::translation.CANCEL}}</button>
+        <button class="btn btn-success" type="submit" ng-hide="confirmDeleteOrganisation">{{::translation.SAVE}}</button>
+    </div>
+</form>

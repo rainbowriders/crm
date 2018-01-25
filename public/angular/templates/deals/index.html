@@ -1,0 +1,203 @@
+<section class="hbox stretch">
+    <section id="content">
+        <section class="hbox stretch">
+            <section>
+                <section class="vbox">
+                    <section class="no-padder">
+                        <section class="hbox padder">
+                            <a href="#" class="btn btn-default btn-md col-md-2" ng-click="openAddDeal()" data-toggle="modal"><i class="fa fa-plus text-success"></i> <span class="text-success" ng-cloak>{{::translation.ADD_NEW_LEAD}}</span></a>
+                            <div class="{{searchClass}}">
+                                <!-- <i class="fa fa-times" style="position: absolute; top:10px;left:87%;color:red;"></i> -->
+                                <input clear-input type="text" ng-model="searchPattern"
+                                class="form-control" placeholder="{{::translation.SEARCH}}..." ng-change="searchInDeals()" ng-cloak style="width: 98%;display: inline-block">
+                                <!-- <input type="text"> -->
+                                <i class="fa fa-times" ng-click="clearSearchField()" id="clear-search-field-btn" ng-show="searchPattern.length > 0"></i>
+                            </div>
+                            <!-- <div class="{{btnsContainerClass}}" style="{{btnContainerPadding}}; {{alignRight}}; padding-left:0px; padding-right: 0px;"> -->
+                                <div class="btn-group" id="status-btns-container" style="{{marginBtnsGroup}}">
+                                    <label class="btn btn-default" ng-model="statuses.open" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_NO_STATUS}}</label>
+                                    <label class="btn btn-default" ng-model="statuses.won" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_WON}}</label>
+                                    <label class="btn btn-default" ng-model="statuses.lost" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_LOST}}</label>
+                                    <label class="btn btn-default" ng-model="statuses.cancelled" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_CANCELLED}}</label>
+                                </div>
+                                <div class="btn-group" id="owner-btns-container"  style="{{marginBtnsGroup}}">
+                                    <label class="btn btn-default" ng-model="owner.me" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_MY_LEADS}}</label>
+                                    <label class="btn btn-default" ng-model="owner.other" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak>{{::translation.SHOW_OTHERS_LEADS}}</label>
+                                </div>
+                                <div class="btn-group " id="fav-btn-container"  style="{{marginBtnsGroup}}">
+                                    <label class="btn btn-default" ng-model="statuses.favorites" btn-checkbox ng-change="reloadDealsWithFilters()" ng-cloak ng-mouseover="BtnFavImg='yellow-star.png'"  ng-mouseleave="BtnFavImg='empty-star.png'"> 
+                                        <span ng-if="statuses.favorites" class="text-danger" style="margin-right: 7px;"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                        <span ng-if="!statuses.favorites" class="text-success" style="margin-right: 10px;"><img class="favorite-star" 
+                                        ng-src="../../../images/{{BtnFavImg}}"></span>{{::translation.FAVORITES_BTN}}
+                                    </label>
+                                </div>  
+                            <!-- </div> -->
+                        </section>
+                        <section class="vbox" id="lead-header-container" ng-cloak  ts-wrapper>
+                            <header id="leads-table-header">
+                                <ul>
+                                    <li ts-criteria="title|lowercase" ts-default="{{elementsOrderType.title}}" ng-if="lastSortedOrder.title == true" ng-click="setHeadersColSortingStyles('title')" style="{{elementsStyle.title}}" ng-mouseover="headerCol='title'"
+                                        ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up"  ng-show="(headerCol == 'title' && elementsOrderType.title == 'descending') || (selectedCol == 'title' && elementsOrderType.title == 'descending') "></i>
+                                        <i class="fa fa-caret-down"  ng-show="(headerCol == 'title' && elementsOrderType.title == 'ascending') || (selectedCol == 'title' && elementsOrderType.title == 'ascending') "></i>{{::translation.TITLE}}
+                                    </li>
+                                    <li ts-criteria="title|lowercase"  ng-if="lastSortedOrder.title == false" ng-click="setHeadersColSortingStyles('title')" style="{{elementsStyle.title}}" ng-mouseover="headerCol='title'"
+                                        ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up"  ng-show="(headerCol == 'title' && elementsOrderType.title == 'descending') || (selectedCol == 'title' && elementsOrderType.title == 'descending') "></i>
+                                        <i class="fa fa-caret-down"  ng-show="(headerCol == 'title' && elementsOrderType.title == 'ascending') || (selectedCol == 'title' && elementsOrderType.title == 'ascending') "></i>{{::translation.TITLE}}
+                                    </li>
+
+                                    <li ts-criteria="organisation.name|lowercase" ts-default="{{elementsOrderType.organisation}}" ng-if="lastSortedOrder.organisation == true" ng-click="setHeadersColSortingStyles('organisation')" style="{{elementsStyle.organisation}}"
+                                    ng-mouseover="headerCol='organisation'" ng-mouseleave="headerCol = null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'descending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'ascending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'ascending') "></i>{{::translation.ORGANISATION}}
+                                    </li>
+                                    <li ts-criteria="organisation.name|lowercase" ng-if="lastSortedOrder.organisation == false" ng-click="setHeadersColSortingStyles('organisation')" style="{{elementsStyle.organisation}} max-heigth: 30px;"
+                                    ng-mouseover="headerCol='organisation'" ng-mouseleave="headerCol = null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'descending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'organisation' && elementsOrderType.organisation == 'ascending') || 
+                                        (selectedCol == 'organisation' && elementsOrderType.organisation == 'ascending') "></i>{{::translation.ORGANISATION}}
+                                    </li>
+
+                                    <li ts-criteria="contact.name|lowercase" ts-default="{{elementsOrderType.contact}}" ng-if="lastSortedOrder.contact == true" ng-click="setHeadersColSortingStyles('contact')" style="{{elementsStyle.contact}}" ng-mouseover="headerCol='contact'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'contact' && elementsOrderType.contact == 'descending') || 
+                                        (selectedCol == 'contact' && elementsOrderType.contact == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'contact' && elementsOrderType.contact == 'ascending') || 
+                                        (selectedCol == 'contact' && elementsOrderType.contact == 'ascending') "></i>{{::translation.CONTACT_PERSON}}
+                                    </li>
+                                    <li ts-criteria="contact.name|lowercase"  ng-if="lastSortedOrder.contact == false" ng-click="setHeadersColSortingStyles('contact')" style="{{elementsStyle.contact}}" ng-mouseover="headerCol='contact'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'contact' && elementsOrderType.contact == 'descending') || 
+                                        (selectedCol == 'contact' && elementsOrderType.contact == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'contact' && elementsOrderType.contact == 'ascending') || 
+                                        (selectedCol == 'contact' && elementsOrderType.contact == 'ascending') "></i>{{::translation.CONTACT_PERSON}}
+                                    </li>
+
+                                    <li ts-criteria="value|parseFloat" ts-default="{{elementsOrderType.value}}" ng-if="lastSortedOrder.value == true" ng-click="setHeadersColSortingStyles('value')" style="{{elementsStyle.value}}" ng-mouseover="headerCol='value'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'value' && elementsOrderType.value == 'descending') || 
+                                        (selectedCol == 'value' && elementsOrderType.value == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'value' && elementsOrderType.value == 'ascending') || 
+                                        (selectedCol == 'value' && elementsOrderType.value == 'ascending') "></i>{{::translation.VALUE}}
+                                    </li>
+                                    <li ts-criteria="value|parseFloat" ng-if="lastSortedOrder.value == false" ng-click="setHeadersColSortingStyles('value')" style="{{elementsStyle.value}}" ng-mouseover="headerCol='value'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'value' && elementsOrderType.value == 'descending') || 
+                                        (selectedCol == 'value' && elementsOrderType.value == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'value' && elementsOrderType.value == 'ascending') || 
+                                        (selectedCol == 'value' && elementsOrderType.value == 'ascending') "></i>{{::translation.VALUE}}
+                                    </li>
+
+                                    <li ts-criteria="stage.id" ts-default="{{elementsOrderType.stage}}" ng-if="lastSortedOrder.stage == true" ng-click="setHeadersColSortingStyles('stage')" style="{{elementsStyle.stage}}"ng-mouseover="headerCol='stage'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'stage' && elementsOrderType.stage == 'descending') || 
+                                        (selectedCol == 'stage' && elementsOrderType.stage == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'stage' && elementsOrderType.stage == 'ascending') || 
+                                        (selectedCol == 'stage' && elementsOrderType.stage == 'ascending') "></i>{{::translation.STAGE}}
+                                    </li>
+                                    <li ts-criteria="stage.id"  ng-if="lastSortedOrder.stage == false" ng-click="setHeadersColSortingStyles('stage')" style="{{elementsStyle.stage}}"ng-mouseover="headerCol='stage'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'stage' && elementsOrderType.stage == 'descending') || 
+                                        (selectedCol == 'stage' && elementsOrderType.stage == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'stage' && elementsOrderType.stage == 'ascending') || 
+                                        (selectedCol == 'stage' && elementsOrderType.stage == 'ascending') "></i>{{::translation.STAGE}}
+                                    </li>
+
+                                    <li ts-criteria="status" ts-default="{{elementsOrderType.status}}" ng-if="lastSortedOrder.status == true" ng-click="setHeadersColSortingStyles('status')" style="{{elementsStyle.status}}"ng-mouseover="headerCol='status'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'status' && elementsOrderType.status == 'descending') || 
+                                        (selectedCol == 'status' && elementsOrderType.status == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'status' && elementsOrderType.status == 'ascending') || 
+                                        (selectedCol == 'status' && elementsOrderType.status == 'ascending') "></i>{{::translation.STATUS}}
+                                    </li>
+                                    <li ts-criteria="status" ng-if="lastSortedOrder.status == false" ng-click="setHeadersColSortingStyles('status')" style="{{elementsStyle.status}}"ng-mouseover="headerCol='status'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'status' && elementsOrderType.status == 'descending') || 
+                                        (selectedCol == 'status' && elementsOrderType.status == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'status' && elementsOrderType.status == 'ascending') || 
+                                        (selectedCol == 'status' && elementsOrderType.status == 'ascending') "></i>{{::translation.STATUS}}
+                                    </li>
+
+                                    <li ts-criteria="updated_at.date" ts-default="{{elementsOrderType.updated}}" ng-if="lastSortedOrder.updated == true" ng-click="setHeadersColSortingStyles('updated')" style="{{elementsStyle.updated}}" ng-mouseover="headerCol='updated'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'updated' && elementsOrderType.updated == 'descending') || (selectedCol == 'updated' && elementsOrderType.updated == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="headerCol == 'updated' && elementsOrderType.updated == 'ascending'|| (selectedCol == 'updated' && elementsOrderType.updated == 'ascending')  "></i>{{::translation.UPDATED_AT}}
+                                    </li>
+                                    <li ts-criteria="updated_at.date" ng-if="lastSortedOrder.updated == false" ng-click="setHeadersColSortingStyles('updated')" style="{{elementsStyle.updated}}" ng-mouseover="headerCol='updated'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'updated' && elementsOrderType.updated == 'descending') || (selectedCol == 'updated' && elementsOrderType.updated == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="headerCol == 'updated' && elementsOrderType.updated == 'ascending'|| (selectedCol == 'updated' && elementsOrderType.updated == 'ascending')  "></i>{{::translation.UPDATED_AT}}
+                                    </li>
+
+                                    <li ts-criteria="ownerName | lowercase" ts-default="{{elementsOrderType.owner}}" ng-if="lastSortedOrder.owner == true" ng-click="setHeadersColSortingStyles('owner')" style="{{elementsStyle.owner}}"  ng-mouseover="headerCol='owner'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'owner' && elementsOrderType.owner == 'descending') || 
+                                        (selectedCol == 'owner' && elementsOrderType.owner == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'owner' && elementsOrderType.owner == 'ascending') || 
+                                        (selectedCol == 'owner' && elementsOrderType.owner == 'ascending') "></i>{{::translation.OWNER}}
+                                    </li>
+                                    <li ts-criteria="ownerName | lowercase" ng-if="lastSortedOrder.owner == false" ng-click="setHeadersColSortingStyles('owner')" style="{{elementsStyle.owner}}"  ng-mouseover="headerCol='owner'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'owner' && elementsOrderType.owner == 'descending') || 
+                                        (selectedCol == 'owner' && elementsOrderType.owner == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'owner' && elementsOrderType.owner == 'ascending') || 
+                                        (selectedCol == 'owner' && elementsOrderType.owner == 'ascending') "></i>{{::translation.OWNER}}
+                                    </li>
+
+                                    <li ts-criteria="isFavorite" ts-default="{{elementsOrderType.favorotes}}" ng-if="lastSortedOrder.favorotes == true" ng-click="setHeadersColSortingStyles('favorotes')" style="{{elementsStyle.favorites}}"  ng-mouseover="headerCol='favorotes'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'favorotes' && elementsOrderType.favorotes == 'descending') || 
+                                        (selectedCol == 'favorotes' && elementsOrderType.favorotes == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'favorotes' && elementsOrderType.favorotes == 'ascending') || 
+                                        (selectedCol == 'favorotes' && elementsOrderType.favorotes == 'ascending') "></i>
+                                    </li>
+                                    <li ts-criteria="isFavorite" ng-if="lastSortedOrder.favorotes == false" ng-click="setHeadersColSortingStyles('favorotes')" style="{{elementsStyle.favorites}}"  ng-mouseover="headerCol='favorotes'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'favorotes' && elementsOrderType.favorotes == 'descending') || 
+                                        (selectedCol == 'favorotes' && elementsOrderType.favorotes == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'favorotes' && elementsOrderType.favorotes == 'ascending') || 
+                                        (selectedCol == 'favorotes' && elementsOrderType.favorotes == 'ascending') "></i>
+                                    </li>
+                                </ul>
+                            </header>
+                            <section class="scrollable padder m-t-sm m-b-sm w-f-md" id="scrollContainer"
+                            >
+                                <div infinite-scroll-container="'#scrollContainer'" infinite-scroll="loadMore()" infinite-scroll-distance="5" id="leads-table-body" style="{{tableWidth}}">
+                                    <ul ng-repeat="deal in deals | orderBy: orderCriteriaItems" ts-repeat ng-click="openDeal(deal)">
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}">{{deal.title }}
+                                            </a>
+                                        </li>
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}">{{deal.organisation.name}}</a>
+                                        </li>
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}">{{deal.contact.name}}</a>
+                                        </li>
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}" >{{deal.value | currency:deal.currency.sign}}</a>
+                                        </li>
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}">{{::translation[deal.stage.title]}}</a>
+                                        </li>
+                                        <li class="{{dealStatusClass(deal.status)}}" >
+                                            <a href="/lead:{{deal.id}}" style="color:{{dealStatusClass(deal.status)}};">{{::translation[dealStatusTranslation(deal.status)]}}</a>
+                                        </li>
+                                        <li ng-cloak ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}" ng-bind-html="deal.updated_at.date  | dateToISO | date:'MMM dd yyyy'"></a>
+                                        </li>
+                                        <li ng-click="openDeal(deal)" >
+                                            <a href="/lead:{{deal.id}}">{{deal.ownerName}}</a>
+                                        </li>
+                                        <li ng-click="changeFavoriteStatus($event, deal)"  style="text-align: center">
+                                        <span ng-if="deal.isFavorite" class="text-danger"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                        <span ng-if="!deal.isFavorite" class="text-success"><img class="favorite-star"
+                                        ng-src="../../../images/{{img}}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                                <div ng-if="loadDeals === true && deals.length === 0" style="text-align: center; margin-top: 20px;">{{::translation.LOADING_DATA}}</div>
+                                <div ng-if="loadDeals === false && deals.length === 0"style="text-align: center; margin-top: 20px;">{{::translation.NO_DATA}}</div>
+                            </section>
+                        </section> 
+                    </section>
+                </section>
+            </section>
+        </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+    </section>
+</section>
+<script>
+    $('table').stickyTableHeaders();
+</script>

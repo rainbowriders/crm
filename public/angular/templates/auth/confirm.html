@@ -1,0 +1,18 @@
+<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+  <div class="container aside-xl"><div id="logo" class="text-center m-b"><img ng-src="/images/rr-circle-logo.png" alt="..." style="height:50px;margin-right:10px;"> Rainbow CRM</div>
+  <section class="m-b-lg">
+  <header class="wrapper text-center text-success"> <strong>Account verified successfully! Sign in with your email and password</strong> </header>
+  <form ng-if="!isAuthenticated()"  novalidate angular-validator angular-validator-submit="login(user)" name="loginForm">
+    <div class="form-group relative">
+      <input type="text" name="email" class="form-control" placeholder="{{translation.EMAIL}}" ng-model="user.email" required validate-on="dirty" required-message = "'{{translation.REQUIRED}}'" ng-cloak>
+    </div>
+    <div class="form-group relative">
+      <input type="password" name="password" class="form-control" placeholder="{{translation.PASSWORD}}" ng-model="user.password" required validate-on="dirty" required-message = "'{{translation.REQUIRED}}'" ng-cloak>
+    </div>
+    <button type="submit" class="btn btn-lg btn-success lt b-white b-2x btn-block btn-rounded"><i class="icon-arrow-right pull-right"></i><span class="m-r-n-lg" ng-cloak>{{translation.LOGIN}}</span></button>
+  </form>
+<header ng-if="isAuthenticated()" class="wrapper text-center text-success"> <strong>You seem to be logged in with another account. Log out and then login again with your newly verified account.</strong> </header>
+<a href="#" class="btn btn-rounded btn-sm btn-primary" ng-if="isAuthenticated()" ng-click="logout()"><i class="fa fa-fw fa-sign-out"></i> {{translation.LOGOUT}}</a>
+</section>
+</div>
+</section>

@@ -1,0 +1,135 @@
+<section class="hbox stretch" ng-controller="OrganisationsController" ng-cloak>
+    <section id="content">
+        <section class="hbox stretch">
+            <section>
+                <section class="vbox">
+                    <section class="no-padder">
+                        <section class="hbox padder">
+                            <a href="javascendingript:" class="btn btn-default btn-md col-md-2" ng-click="openAddOrganisation()"><i class="fa fa-plus text-success"></i> <span class="text-success">{{translation.ADD_NEW_ORGANISATION}}</span></a>
+                            <div class="col-md-4">
+                                <input clear-input type="text" ng-model="searchPattern" ng-change="searchInOrganisations()" class="form-control" placeholder="{{translation.SEARCH}}..." style="display: inline-block;width: 98%">
+                                <i class="fa fa-times" ng-click="clearSearchField()"  id="clear-search-field-btn" ng-show="searchPattern.length > 0"></i>
+                            </div>
+                            <!-- <div class="col-md-6">                               
+                               <div class="btn-group" style="margin-left: 30px;">
+                                    <label class="btn btn-default" ng-model="statuses.favorites" btn-checkbox ng-change="getFavorites()" ng-cloak ng-mouseover="BtnFavImg='yellow-star.png'"  ng-mouseleave="BtnFavImg='empty-star.png'"> 
+                                        <span ng-if="statuses.favorites" class="text-danger" style="margin-right: 10px;"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                        <span ng-if="!statuses.favorites" class="text-success" style="margin-right: 10px;"><img class="favorite-star" 
+                                        ng-src="../../../images/{{BtnFavImg}}"></span>{{::translation.FAVORITES_BTN}}
+                                    </label>
+                                </div>  
+                            </div> -->
+                        </section>
+                        <section class="vbox" id="organisations-table-container" ts-wrapper>
+
+                            <header id="organisations-table-header" >
+                                <ul>
+                                    <li ts-criteria="name | lowercase" ng-if="lastSortedOrder.name == true" ts-default="{{elementsOrderType.name}}" ng-click="setHeadersColSortingStyles('name')" style="{{elementsStyle.name}}"
+                                    ng-mouseover="headerCol='name'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'name' && elementsOrderType.name == 'descending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'name' && elementsOrderType.name == 'ascending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'ascending') "></i>{{translation.NAME}}
+                                    </li>
+                                    <li ts-criteria="name | lowercase" ng-if="lastSortedOrder.name == false" ng-click="setHeadersColSortingStyles('name')" style="{{elementsStyle.name}}"
+                                    ng-mouseover="headerCol='name'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'name' && elementsOrderType.name == 'descending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'name' && elementsOrderType.name == 'ascending') || 
+                                        (selectedCol == 'name' && elementsOrderType.name == 'ascending') "></i>{{translation.NAME}}
+                                    </li>
+
+                                    <li ts-criteria="address | lowercase" ng-if="lastSortedOrder.address == true" ts-default="{{elementsOrderType.address}}" ng-click="setHeadersColSortingStyles('address')" style="{{elementsStyle.address}}"
+                                    ng-mouseover="headerCol='address'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'address' && elementsOrderType.address == 'descending') || 
+                                        (selectedCol == 'address' && elementsOrderType.address == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'address' && elementsOrderType.address == 'ascending') || 
+                                        (selectedCol == 'address' && elementsOrderType.address == 'ascending') "></i>{{translation.ADDRESS}}
+                                    </li>
+                                    <li ts-criteria="address | lowercase" ng-if="lastSortedOrder.address == false" ng-click="setHeadersColSortingStyles('address')" style="{{elementsStyle.address}}"
+                                    ng-mouseover="headerCol='address'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'address' && elementsOrderType.address == 'descending') || 
+                                        (selectedCol == 'address' && elementsOrderType.address == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'address' && elementsOrderType.address == 'ascending') || 
+                                        (selectedCol == 'address' && elementsOrderType.address == 'ascending') "></i>{{translation.ADDRESS}}
+                                    </li>
+
+                                    <li ts-criteria="zip" ng-if="lastSortedOrder.zip == true" ts-default="{{elementsOrderType.zip}}" ng-click="setHeadersColSortingStyles('zip')" style="{{elementsStyle.zip}}"
+                                        ng-mouseover="headerCol='zip'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'zip' && elementsOrderType.zip == 'descending') || 
+                                        (selectedCol == 'zip' && elementsOrderType.zip == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'zip' && elementsOrderType.zip == 'ascending') || 
+                                        (selectedCol == 'zip' && elementsOrderType.zip == 'ascending') "></i>{{translation.ZIP}}
+                                    </li>
+                                    <li ts-criteria="zip" ng-if="lastSortedOrder.zip == false" ng-click="setHeadersColSortingStyles('zip')" style="{{elementsStyle.zip}}"
+                                        ng-mouseover="headerCol='zip'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up" ng-show="(headerCol == 'zip' && elementsOrderType.zip == 'descending') || 
+                                        (selectedCol == 'zip' && elementsOrderType.zip == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'zip' && elementsOrderType.zip == 'ascending') || 
+                                        (selectedCol == 'zip' && elementsOrderType.zip == 'ascending') "></i>{{translation.ZIP}}
+                                    </li>
+
+                                    <li ts-criteria="city | lowercase" ng-if="lastSortedOrder.city == true" ts-default="{{elementsOrderType.city}}" ng-click="setHeadersColSortingStyles('city')" style="{{elementsStyle.city}}"
+                                    ng-mouseover="headerCol='city'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up"  ng-show="(headerCol == 'city' && elementsOrderType.city == 'descending') || 
+                                        (selectedCol == 'city' && elementsOrderType.city == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'city' && elementsOrderType.city == 'ascending') || 
+                                        (selectedCol == 'city' && elementsOrderType.city == 'ascending') "></i>{{translation.CITY}}
+                                    </li>
+                                     <li ts-criteria="city | lowercase" ng-if="lastSortedOrder.city == false" ng-click="setHeadersColSortingStyles('city')" style="{{elementsStyle.city}}"
+                                    ng-mouseover="headerCol='city'" ng-mouseleave="headerCol=null">
+                                        <i class="fa fa-caret-up"  ng-show="(headerCol == 'city' && elementsOrderType.city == 'descending') || 
+                                        (selectedCol == 'city' && elementsOrderType.city == 'descending') "></i>
+                                        <i class="fa fa-caret-down" ng-show="(headerCol == 'city' && elementsOrderType.city == 'ascending') || 
+                                        (selectedCol == 'city' && elementsOrderType.city == 'ascending') "></i>{{translation.CITY}}
+                                    </li>
+                                </ul>
+                            </header>
+                            <section class="scrollable padder m-t-sm m-b-sm w-f-md" id="scrollContainer">
+                                <div infinite-scroll-container="'#scrollContainer'" infinite-scroll="loadMore()" infinite-scroll-distance="5" id="organisations-table-body" style="{{tableWidth}}">
+                                    <ul ng-repeat="organisation in organisations" ts-repeat ng-click="openEditOrganisation(organisation)">
+                                        <li>{{organisation.name}}</li>
+                                        <li>{{organisation.address}}</li>
+                                        <li>{{organisation.zip}}</li>
+                                        <li>{{organisation.city}}</li>
+                                    </ul>
+                                </div>
+                            </section>
+                            <!-- <section class="scrollable padder m-t-sm m-b-sm w-f-md" id="scrollContainer">
+                                <section class="panel panel-default clearfix">
+                                    <div class="table-responsive" infinite-scroll-container="'#scrollContainer'" infinite-scroll="loadMore()" infinite-scroll-distance="2">
+                                        <table class="table table-hover b-t b-light" ts-wrapper>
+                                            <thead >
+                                                <tr class="bg-light">
+                                                    <th ts-criteria="name | lowercase" ts-default>{{translation.NAME}}</th>
+                                                    <th ts-criteria="address | lowercase">{{translation.ADDRESS}}</th>
+                                                    <th ts-criteria="zip">{{translation.ZIP}}</th>
+                                                    <th ts-criteria="city | lowercase">{{translation.CITY}}</th> -->
+                                                   <!--  <th ts-criteria="isFavorite"></th> -->
+                                             <!--    </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr ng-repeat="organisation in organisations" ts-repeat >
+                                                    <td ng-click="openEditOrganisation(organisation)">{{organisation.name}}</td>
+                                                    <td ng-click="openEditOrganisation(organisation)">{{organisation.address}}</td>
+                                                    <td ng-click="openEditOrganisation(organisation)">{{organisation.zip}}</td>
+                                                    <td ng-click="openEditOrganisation(organisation)">{{organisation.city}}</td> -->
+                                                     <!-- <td ng-click="changeFavoriteStatus(organisation)" ng-mouseover="img='yellow-star.png'"  ng-mouseleave="img='empty-star.png'">
+                                                            <span ng-if="organisation.isFavorite" class="text-danger"><img class="favorite-star" src="../../../images/yellow-star.png"></span>
+                                                            <span ng-if="!organisation.isFavorite" class="text-success"><img class="favorite-star" 
+                                                            ng-src="../../../images/{{img}}"></span>
+                                                        </td> -->
+<!--                                                 </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </section>
+                            </section> -->
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+    </section>
+</section>

@@ -1,0 +1,78 @@
+<section class="hbox stretch" ng-controller="UserSettingsController">
+	<!-- .aside -->
+	<aside class="bg-white aside hidden-print m-r-n-lg" id="nav">
+		<section class="vbox">
+			<section class="scrollable hover">
+				<div class="slim-scroll" data-height="auto" data-disable-fade-out="true" data-distance="0" data-size="10px" data-railOpacity="0.2">
+					<!-- nav -->
+					<nav class="nav-primary hidden-xs">
+					</nav>
+					<!-- / nav -->
+				</div>
+			</section>
+		</section>
+	</aside>
+	<!-- /.aside -->
+	<section id="content" class="padder">
+		<section class="hbox stretch">
+			<section>
+				<section class="vbox">
+					<section class="no-padder">
+						<section class="vbox">
+							<section class="scrollable m-t-sm m-b-sm w-f-md">
+								<section class="panel panel-default clearfix col-lg-12 no-padder">
+									<form role="form" novalidate angular-validator angular-validator-submit="ok(settingsForm)" name="settingsForm" ng-submit="saveSettings()">
+										<div class="panel-body">
+											<div class="form-group col-lg-12 no-padder">
+												<div class="btn-group form-group relative clearfix block">
+													<label class="clear">{{translation.DEFAULT_CURRENCY}}</label>
+													<button type="button" class="btn btn-default clear" ng-repeat="currency in currencies" ng-model="selectedCurrency.id" btn-radio="{{currency.id}}">{{currency.name}}</button>
+												</div>
+											</div>
+											<div class="form-group col-lg-12 no-padder">
+												<div class="btn-group form-group relative clearfix block">
+													<label class="clear">{{translation.LANGUAGE}}:</label>
+													<button type="button" class="btn btn-default" ng-repeat="language in languages" ng-model="selectedLanguage.id" btn-radio="{{language.id}}" >{{language.name}}</button>
+												</div>
+											</div>
+										</div>
+										<div class="panel-footer"><button class="btn btn-success" type="submit">{{translation.SAVE}}</button></div>
+									</form>
+								</section>
+								<section class="panel panel-default clearfix col-lg-12 no-padder">
+									<form role="form" novalidate angular-validator angular-validator-submit="ok(inviteForm)" name="inviteForm" ng-submit="invateUser()">
+										<div class="panel-body">
+											<div class="form-group relative col-lg-4">
+												<label>{{translation.INVITE_BY_EMAIL}}</label>
+												<input type="text" name="useremail" class="form-control" placeholder="Email" ng-model="invationEmailData" required validate-on="dirty" required-message="'{{translation.REQUIRED}}'">
+												<button class="btn btn-success pull-right m-t" type="submit">{{translation.INVITE}}</button>
+											</div>
+											<div class="col-lg-8">
+											<header class="text-center"> <strong>{{translation.USERS_IN_COMPANY}}</strong> </header>
+											<ul class="list-group alt">
+												<li class="list-group-item" ng-repeat="user in users">
+													<div class="media">
+														<span class="pull-left thumb-sm"><img src="images/person.png" alt="John said" class="img-circle"></span>
+														<span class="pull-right label label-success m-r-sm" ng-if="user.confirmed == 1">{{translation.ACTIVE}}</span>
+														<span class="pull-right label label-warning m-r-sm" ng-if="user.confirmed == 0">{{translation.PENDING}}</span>
+														<span class="pull-right btn btn-sm btn-success" ng-if="user.confirmed == 0" ng-click="resendInvitationEmail(user)">{{translation.RESEND_INV_EMAIL}}</span>
+														<div class="media-body">
+															<div>{{user.name}}</div>
+															<small class="text-muted"><a href="mailto:{{user.email}}">{{user.email}}</a></small>
+														</div>
+													</div>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</form>
+							</section>
+						</section>
+					</section>
+				</section>
+			</section>
+		</section>
+	</section>
+	<a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+</section>
+</section>

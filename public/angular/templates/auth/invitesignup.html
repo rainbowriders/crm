@@ -1,0 +1,58 @@
+<div class="forms-image-background">
+  <div class="forms-shadowed-background">
+    <div class="container container-with-padding">
+      <div class="row">
+        <div class="redirect-to-register-msg">
+          <h3><a href="/signup" class="new-text">Already have an Rainbow CRM account? <span class="sign-up-text">Log in</span></a></h3>
+        </div>
+      </div>
+      <form class="row">
+        <div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 form-container animated fadeInDown">
+          <div class="row">
+            <h3 class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">Registration</h3>
+          </div>
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+              <input type="text" name="registerCompanyName" id="registerCompanyName"
+                     ng-model="userRegData.company"
+                     ng-disabled="true">
+              <label for="registerCompanyName" id="registerCompanyNameLabel">Company name</label>
+              <span class="input-error-message" ng-if="errors.registerCompanyName == true">{{errorsText.registerCompanyNameError}}</span>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+              <input type="text" name="registerFullName" id="registerFullName" class="{{errors.registerFullName == true ? 'input-with-errors': ''}}"
+                     ng-click="animateInputs('registerFullNameLabel', 'registerFullName')"
+                     ng-blur="resetInputs('registerFullNameLabel', 'registerFullName')"
+                     ng-focus="animateInputs('registerFullNameLabel', 'registerFullName')"
+                     ng-model="userRegData.name"
+                     ng-change="errors.registerFullName = false"
+                     focus="true">
+              <label for="registerFullName" id="registerFullNameLabel">Your full name</label>
+              <span class="input-error-message" ng-if="errors.registerFullName == true">{{errorsText.registerFullNameError}}</span>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+              <input type="text" name="registerEmail" id="registerEmail" class="{{errors.registerEmail == true ? 'input-with-errors': ''}}"
+                     ng-model="userRegData.email"
+                     ng-disabled="true">
+              <label for="registerEmail" id="registerEmailLabel">E-mail</label>
+              <span class="input-error-message" ng-if="errors.registerEmail == true">{{errorsText.registerEmailError}}</span>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+              <input type="password" name="registerPassword" id="registerPassword" class="{{errors.registerPassword == true ? 'input-with-errors': ''}}"
+                     ng-click="animateInputs('registerPasswordLabel', 'registerPassword')"
+                     ng-blur="resetInputs('registerPasswordLabel', 'registerPassword')"
+                     ng-focus="animateInputs('registerPasswordLabel', 'registerPassword')"
+                     ng-model="userRegData.password"
+                     ng-change="errors.registerPassword = false">
+              <label for="registerPassword" id="registerPasswordLabel">Password</label>
+              <span class="input-error-message" ng-if="errors.registerPassword == true">{{errorsText.registerPasswordError}}</span>
+            </div>
+            <div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+              <button class="btn" ng-click="signUp()">Sign Up</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

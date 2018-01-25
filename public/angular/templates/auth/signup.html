@@ -1,0 +1,82 @@
+<div class="forms-image-background">
+	<div class="forms-shadowed-background">
+		<div class="container container-with-padding">
+			<div class="row">
+				<div class="redirect-to-register-msg">
+					<h3><a href="/login" class="new-text">Already have an Rainbow CRM account? <span class="sign-up-text">Log in</span></a></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2 form-container animated fadeInDown">
+					<div class="row">
+						<h3 class="col-md-12 col-lg-12 col-sm-12 col-xs-12 text-center">Registration</h3>
+					</div>
+					<form class="row">
+						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+							<input type="text" name="registerCompanyName" id="registerCompanyName" class="{{errors.registerCompanyName == true ? 'input-with-errors': ''}}"
+							       ng-click="animateInputs('registerCompanyNameLabel', 'registerCompanyName')"
+							       ng-blur="resetInputs('registerCompanyNameLabel', 'registerCompanyName')"
+							       ng-focus="animateInputs('registerCompanyNameLabel', 'registerCompanyName')"
+							       ng-model="userRegData.company"
+							       ng-change="errors.registerCompanyName = false"
+							       focus="true">
+							<label for="registerCompanyName" id="registerCompanyNameLabel">Company name</label>
+							<span class="input-error-message" ng-if="errors.registerCompanyName == true">{{errorsText.registerCompanyNameError}}</span>
+						</div>
+						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+							<input type="text" name="registerFullName" id="registerFullName" class="{{errors.registerFullName == true ? 'input-with-errors': ''}}"
+							       ng-click="animateInputs('registerFullNameLabel', 'registerFullName')"
+							       ng-blur="resetInputs('registerFullNameLabel', 'registerFullName')"
+							       ng-focus="animateInputs('registerFullNameLabel', 'registerFullName')"
+							       ng-model="userRegData.name"
+							       ng-change="errors.registerFullName = false">
+							<label for="registerFullName" id="registerFullNameLabel">Your full name</label>
+							<span class="input-error-message" ng-if="errors.registerFullName == true">{{errorsText.registerFullNameError}}</span>
+						</div>
+						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+							<input type="text" name="registerEmail" id="registerEmail" class="{{errors.registerEmail == true ? 'input-with-errors': ''}}"
+							       ng-click="animateInputs('registerEmailLabel', 'registerEmail')"
+							       ng-blur="resetInputs('registerEmailLabel', 'registerEmail')"
+							       ng-focus="animateInputs('registerEmailLabel', 'registerEmail')"
+							       ng-model="userRegData.email"
+							       ng-change="errors.registerEmail = false">
+							<label for="registerEmail" id="registerEmailLabel">E-mail</label>
+							<span class="input-error-message" ng-if="errors.registerEmail == true">{{errorsText.registerEmailError}}</span>
+						</div>
+						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+							<input type="password" name="registerPassword" id="registerPassword" class="{{errors.registerPassword == true ? 'input-with-errors': ''}}"
+							       ng-click="animateInputs('registerPasswordLabel', 'registerPassword')"
+							       ng-blur="resetInputs('registerPasswordLabel', 'registerPassword')"
+							       ng-focus="animateInputs('registerPasswordLabel', 'registerPassword')"
+							       ng-model="userRegData.password"
+							       ng-change="errors.registerPassword = false">
+							<label for="registerPassword" id="registerPasswordLabel">Password</label>
+							<span class="input-error-message" ng-if="errors.registerPassword == true">{{errorsText.registerPasswordError}}</span>
+						</div>
+						<div class="col-md-12 col-lg-12 col-xs-12 col-sm-12 inputs-container">
+							<button class="btn" ng-click="signUp()">Sign Up</button>
+						</div>
+					</form>
+					<div class="social-login row" >
+						<button class="col-md-12 col-lg-12 btn btn-default btn-google" ng-controller="GoogleAuthController" ng-click="login()">
+							<i class="fa fa-google-plus fa-2x" aria-hidden="true"></i><span> Sign Up with Google</span>
+							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						</button>
+					</div>
+					<div class="social-login row" >
+						<button class="col-md-12 col-lg-12 btn btn-default btn-facebook" ng-controller="FacebookAuthController" ng-click="login()">
+							<i class="fa fa-facebook fa-2x" aria-hidden="true"></i><span> Sign Up with Facebook</span>
+							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						</button>
+					</div>
+					<div class="social-login row" >
+						<button class="col-md-12 col-lg-12 btn btn-default btn-linkedin" ng-controller="LinkedAuthController" ng-click="login()">
+							<i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><span> Sign Up with LinkedIn</span>
+							<div class="g-signin2" data-onsuccess="onSignIn"></div>
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

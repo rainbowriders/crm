@@ -1,0 +1,37 @@
+<form role="form" class="form-horizontal" autocomplete="off"
+      novalidate angular-validator
+      angular-validator-submit="ok()" name="addContactForm">
+    <div class="modal-header">
+        <h3 ng-cloak>{{::translation.ADD_NEW_CONTACT}}</h3>
+    </div>
+    <div class="modal-body clearfix">
+        <div class="carousel slide panel-body" id="c-slide">
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.NAME}}</label>
+                <input ng-cloak type="text" name="deal_title" class="form-control" ng-model="name" required validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'">
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.EMAIL}}</label>
+                <input ng-cloak type="text" autocomplete="off" class="form-control" ng-model="email" validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'" name="email">
+                <small class="text-danger" ng-if="!validateEmail(email) && addContactForm.email.$dirty && email">{{::translation.INVALID_EMAIL_ADDRESS}}</small>
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.PHONE}}</label>
+                <input type="text" autocomplete="off" class="form-control" ng-model="phone" name="phone">
+                <small class="text-danger" ng-if="!validatePhone(phone) && addContactForm.phone.$dirty && phone">{{::translation.INVALID_PHONE}}</small>
+            </div>
+            <div class="form-group relative">
+                <label ng-cloak>{{::translation.ORGANISATION}}</label>
+                <input ng-cloak type="text" name="deal_organisation" ng-model="selectedOrganisation.name"
+                       class="form-control" validate-on="dirty"  required-message = "'{{::translation.REQUIRED}}'"
+                       typeahead="organisation as organisation.name for organisation in organisations | filter:$viewValue"
+                       typeahead-on-select="getOrganisations($item)" ng-change="getOrganisations()" autocomplete="off">
+                <small ng-cloak class="text-info" ng-if="addDealForm.deal_organisation.$dirty"
+                ng-show="!selectedOrganisation.id && selectedOrganisation.name !=''">{{::translation.NO_SUCH_ORGANISATION}}</small>
+            </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-danger" ng-click="cancel()" ng-cloak>{{::translation.CANCEL}}</button>
+        <button class="btn btn-success" type="submit" ng-cloak>{{::translation.SAVE}}</button>
+    </div>
+</form>

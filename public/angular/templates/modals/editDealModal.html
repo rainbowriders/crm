@@ -1,0 +1,65 @@
+<form role="form" class="form-horizontal"  novalidate angular-validator angular-validator-submit="ok()" name="editDealForm"
+       ng-cloak>
+    <div  class="modal-header">
+        <h3 ng-hide="confirmDeleteDeal">{{title}}</h3>
+        <h3 ng-show="confirmDeleteDeal">{{::translation.DELETE}} {{title}}</h3>
+    </div>
+    <div class="modal-body clearfix" style="align-items:center padding:0px; margin: 0px;">
+        <div class="carousel slide panel-body" id="c-slide">
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <label>{{::translation.TITLE}}</label>
+                <input type="text" name="title" class="form-control" ng-model="title" required validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'">
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <label>{{::translation.VALUE}}</label>
+                <input type="text" name="value" class="form-control" ng-model="value">
+                <smal class="text-danger" ng-if="!validateValue(value) && editDealForm.value.$dirty && value">{{::translation.VALIDATE_VALUE}}</smal>
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <button type="button" class="btn btn-default" ng-repeat="currency in currencies" ng-model="selectedCurrency.id" btn-radio="{{currency.id}}">{{currency.name}}</button>
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <label ng-cloak>{{::translation.ORGANISATION}}</label>
+                <input ng-cloak type="text" name="deal_organisation" ng-model="selectedOrganisation.name" class="form-control" validate-on="dirty"  required-message = "'{{::translation.REQUIRED}}'"  typeahead="organisation as organisation.name for organisation in organisations | filter:$viewValue"
+                       ng-change="getOrganisations()" autocomplete="off">
+                <small ng-cloak class="text-info" ng-show="editDealForm.deal_organisation.$dirty && organisations.length == 0 && !selectedOrganisation.name.id">{{::translation.NO_SUCH_ORGANISATION}}</small>
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <label ng-cloak>{{::translation.CONTACT_PERSON}}</label>
+                <input  ng-cloak type="text"
+                        name="deal_contact"
+                        ng-model="selectedContact.name"
+                        class="form-control"
+                        validate-on="dirty"
+                        autocomplete="off"
+                        required-message = "'{{::translation.REQUIRED}}'"
+                        ng-change="getContacts()"
+                        typeahead="contact as contact.name + ' ' + contact.email + '' for contact in contacts | filter:$viewValue" typeahead-on-select="getOrganisations($item)">
+                <small ng-cloak class="text-info" ng-show="editDealForm.deal_contact.$dirty && contacts.length == 0 && !selectedContact.name.id">{{::translation.NO_SUCH_CONTACT}}</small>
+            </div>
+            <div class="form-group relative" ng-hide="confirmDeleteDeal">
+                <label>{{::translation.OWNER}}</label>
+                <select name="deal_owner" ng-model="selectedOwner" class="form-control" required validate-on="dirty" required-message = "'{{::translation.REQUIRED}}'" ng-options="user.name for user in users">
+                </select>
+            </div>
+            <div class="btn-group form-group" ng-hide="confirmDeleteDeal">
+                <button type="button" class="btn btn-default" ng-repeat="stage in stages" ng-model="selectedStage.id" btn-radio="{{stage.id}}">{{stage.title }}</button>
+            </div>
+            <div class="btn-group form-group block" ng-hide="confirmDeleteDeal">
+                <button type="button" class="btn btn-default" ng-model="selectedStatus.id" btn-radio="0">{{::translation.OPEN}}</button>
+                <button type="button" class="btn btn-default" ng-model="selectedStatus.id" btn-radio="1">{{::translation.WON}}</button>
+                <button type="button" class="btn btn-default" ng-model="selectedStatus.id" btn-radio="2">{{::translation.LOST}}</button>
+                <button type="button" class="btn btn-default" ng-model="selectedStatus.id" btn-radio="3">{{::translation.CANCELLED}}</button>
+            </div>
+            <div class="btn-group form-group block" ng-show="confirmDeleteDeal" style="padding-top: 0px;margin-top: 8px;padding-bottom: 0px;margin-bottom: 0px; vertical-align: middle;">{{::translation.ARE_YOU_SURE}}
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <div ng-show="confirmDeleteDeal" class="btn btn-s-md btn-danger" ng-click="deleteDeal(false)">{{::translation.CANCEL}}</div>
+        <button ng-show="confirmDeleteDeal" class="btn btn-s-md btn btn-success" ng-click="deleteDeal(true)">{{::translation.YES_DELETE}}</button>
+        <div ng-hide="confirmDeleteDeal" class="btn btn-s-md btn-warning" ng-click="askForDeleteDeal()">{{::translation.DELETE}}</div>
+        <button ng-hide="confirmDeleteDeal" type="button" class="btn btn-danger" ng-click="cancel()">{{::translation.CANCEL}}</button>
+        <button ng-hide="confirmDeleteDeal" class="btn btn-success" type="submit">{{::translation.SAVE}}</button>
+    </div>
+</form>

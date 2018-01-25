@@ -1,0 +1,172 @@
+<section class="hbox stretch">
+    <section id="content" class="padder">
+        <section class="vbox">
+            <section class="scrollable">
+                <section class="hbox stretch">
+                    <aside class="aside-lg bg-light lter b-r">
+                        <section class="vbox">
+                            <section class="scrollable">
+                                <div class="wrapper">
+                                    <a href="#" class="btn btn-default btn-md col-md-2 btn-block m-b" ng-click="openAddDeal()"><i class="fa fa-plus text-success"></i> <span class="text-success" ng-cloak>{{translation.ADD_NEW_LEAD}}</span></a>
+                                    <div class="text-center m-b m-t">
+                                        <div>
+                                            <div class="h3 m-t-xs m-b-xs" ng-cloak>{{deal.title}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="panel wrapper">
+                                        <div class="row text-center" id="show-deal-switch-stage-container">
+                                            <div class="col-xs-6">
+                                                <small class="text-uc text-xs text-muted"
+                                                ng-click="showStageBtns()" ng-cloak>{{translation.STAGE}}</small>
+                                                <span class="m-b-xs h4 block" ng-click="showStageBtns()"
+                                                ng-hide="viewStageBtns" ng-cloak>{{translation[deal.stage.title]}}</span>
+                                                <span class="m-b-xs h4 block" ng-show="viewStageBtns"
+                                                ng-click="changeDealStage(0)" ng-cloak>{{translation.None}}</span>
+                                                <span class="m-b-xs h4 block" ng-show="viewStageBtns"
+                                                ng-click="changeDealStage(1)" ng-cloak>{{translation.Idea}}</span>
+                                                <span class="m-b-xs h4 block" ng-show="viewStageBtns"
+                                                ng-click="changeDealStage(2)" ng-cloak>{{translation.Contact}}</span>
+                                                <span class="m-b-xs h4 block" ng-show="viewStageBtns"
+                                                ng-click="changeDealStage(3)" ng-cloak>{{translation.Quoted}}</span>
+                                            </div>
+                                            <div class="col-xs-6" ng-switch on="deal.status" id="show-deal-switch-status-container">
+                                                <small class="text-uc text-xs text-muted" ng-click="changeStatusBtns()" ng-cloak>{{translation.STATUS}}</small>
+                                                <span class="m-b-xs h4 block" ng-switch-when="open" ng-click="changeStatusBtns()" ng-cloak ng-hide="showChangeStatusBtns">{{translation.OPEN}}</span>
+                                                <span class="m-b-xs h4 block text-success" ng-cloak ng-switch-when="won" ng-click="changeStatusBtns()" ng-hide="showChangeStatusBtns">{{translation.WON}}</span>
+                                                <span class="m-b-xs h4 block text-danger" ng-cloak ng-switch-when="lost" ng-click="changeStatusBtns()" ng-hide="showChangeStatusBtns" ng-cloak>{{translation.LOST}}</span>
+                                                <span class="m-b-xs h4 block text-danger" ng-cloak ng-switch-when="cancelled" ng-click="changeStatusBtns()" ng-hide="showChangeStatusBtns" ng-cloak>{{translation.CANCELLED}}</span>
+                                                <span class="m-b-xs h4 block text-danger" ng-show="showChangeStatusBtns" ng-cloak ng-click="changeDealStatus('lost')">{{translation.LOST}}</span>
+                                                <span class="m-b-xs h4 block text-danger" ng-show="showChangeStatusBtns" ng-cloak ng-click="changeDealStatus('cancelled')">{{translation.CANCELLED}}</span>
+                                                <span class="m-b-xs h4 block text-success" ng-show="showChangeStatusBtns" ng-cloak ng-click="changeDealStatus('won')">{{translation.WON}}</span>
+                                                <span class="m-b-xs h4 block" ng-cloak ng-show="showChangeStatusBtns" ng-click="changeDealStatus('open')">{{translation.OPEN}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row text-center m-t">
+                                            <div class="col-xs-12">
+                                                <small class="text-uc text-xs text-muted" ng-cloak>{{translation.VALUE}}</small> <span class="m-b-xs h4 block">{{deal.value | currency:deal.currency.sign}}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="line bg-white"></div>
+                                        <small class="text-uc text-xs text-muted pull-left" ng-cloak>{{translation.CONTACT_PERSON}}</small>
+                                        <span ng-cloak class="pull-right text-info">{{deal.contact.name}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="line bg-white"></div>
+                                        <small ng-cloak class="text-uc text-xs text-muted pull-left">{{translation.ORGANISATION}}</small>
+                                        <span ng-cloak class="pull-right text-info">{{deal.organisation.name}}</span>
+                                    </div>
+                                    <div class="clearfix">
+                                        <div class="line bg-white"></div>
+                                        <small ng-cloak class="text-uc text-xs text-muted pull-left">{{translation.OWNER}}</small>
+                                        <span ng-cloak class="pull-right text-info">{{deal.user.name}}</span>
+                                    </div>
+                                    <button ng-cloak class="btn btn-block btn-lg m-t btn-info" ng-click="openEditDeal(deal)"><i class="fa fa-pencil"></i > {{translation.EDIT_LEAD}}</button>
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
+                    <aside class="bg-white">
+                        <section class="vbox">
+                            <header class="header bg-light lt">
+                                <ul class="nav nav-tabs nav-white">
+                                    <li class="active"><a href="#updates" data-toggle="tab" ng-cloak>{{translation.UPDATES}}</a></li>
+                                </ul>
+                            </header>
+                            <section class="scrollable">
+                                <div class="tab-content">
+                                    <div class="tab-pane active" id="updates">
+                                        <form role="form" class="clearfix">
+                                            <div class="col-lg-12 m-t m-b-sm form-group">
+                                                <textarea  ng-cloak class="form-control" placeholder="{{translation.WRITE_COMMENT}}..." ng-model="newcomment"
+                                                ng-bind-html="newcomment | smilies" rows="8"></textarea>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <!-- <div class="smile-picker">
+                                                    <span ng-repeat="smilie in smiliesPicker">
+                                                        <img src="../../../packages/bower_components/angular-smilies/src/smilies/{{smilie}}.png" ng-click="addSmilieToCommentArea(smilie)">
+                                                    </span>
+                                                </div> -->
+                                                <button type="submit" class="btn btn-default pull-right" ng-click="postComment()" ng-cloak>{{translation.POST_COMMENT}}</button>
+                                            </div>
+                                        </form>
+                                        <div class="block m-t">
+                                            <ul class="list-group no-radius list-group-lg no-border clearfix block">
+                                                <li class="list-group-item no-border b-t" ng-repeat="comment in deal.comments | orderBy:'-updated_at'">
+                                                    <div class="thumb-sm pull-left m-r-sm">
+                                                        <img src="/images/person.png" class="img-circle">
+                                                    </div>
+                                                    <div class="clear">
+                                                        <small ng-cloak class="pull-right"><i class="fa fa-clock-o"></i> {{comment.created_at| dateToISO | date:'MMM dd yyyy HH:mm'}}</small>
+                                                        <strong ng-cloak class="block">{{comment.user.name}}</strong>
+                                                        <small ng-bind-html="comment.text | linky | nl2br"
+                                                        ng-hide="commentInEditMode && commentInEditModeId === comment.id"></small>
+                                                        <textarea ng-show="commentInEditMode && commentInEditModeId === comment.id" ng-model="currCommentNewText"
+                                                        rows="3" cols="70" style="width: 100%"></textarea>
+                                                        <div class="comment-footer" style="padding-top: 10px; margin-top: 10px;">
+                                                            <span class="pull-right btn btn-default btn-sm"
+                                                            ng-click="editComment(comment)"
+                                                            ng-hide="(commentInEditMode && commentInEditModeId === comment.id)"
+                                                            ng-if="currUserID == comment.userID"
+                                                            ng-cloak>{{translation.EDIT_COMMENT}}</span>
+                                                             <span class="pull-right btn btn-danger btn-sm" style="margin-right: 5px;"
+                                                                   ng-click="deleteComment(comment)"
+                                                                   ng-hide="(commentInEditMode && commentInEditModeId === comment.id)"
+                                                                   ng-cloak>{{translation.DELETE_COMMENT}}</span>
+                                                            <span class="pull-right btn btn-default btn-sm"
+                                                                ng-click="doneEditComment(currCommentNewText)"
+                                                            ng-show="commentInEditMode && commentInEditModeId === comment.id" ng-cloak>{{translation.SAVE}}</span>
+                                                            <span class="pull-right btn btn-default btn-sm"
+                                                                ng-click="cancelEditComment()"
+                                                            ng-show="commentInEditMode && commentInEditModeId === comment.id" ng-cloak>{{translation.CANCEL}}</span>
+                                                        </div>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
+                    <aside class="col-lg-3 b-l">
+                        <section class="vbox">
+                            <section class="scrollable padder-v">
+                                <div class="panel">
+                                    <h4 class="font-thin padder" ng-cloak>{{translation.REVISION_LOG}}</h4>
+                                    <ul class="list-group">
+                                        <li class="list-group-item" ng-repeat="revision in logs | orderBy:'-date'" ng-hide="revision.old == null && !revision.comment">
+                                            <div class="clearfix" ng-hide="revision.comment">
+                                                <small class="block pull-left" ng-cloak>{{revision.user}}</small>
+                                                <small class="pull-right block" ng-cloak><i class="fa fa-clock-o"></i> {{revision.date | dateToISO | date:'MMM dd yyyy HH:mm'}}</small>
+                                            </div>
+                                            <div class="block clearfix" ng-hide="revision.comment">
+                                                <small ng-hide="revision.label == 'contact person'" class="pull-left  m-r-sm"  ng-cloak>{{translation[revision.label.toUpperCase()]}}: </small>
+                                                <small ng-show="revision.label == 'contact person'"class="pull-left text-capitalize m-r-sm" style="text-transform:capitalize;" ng-cloak>{{translation.CONTACT_PERSON}}: </small>
+                                                <span class="pull-left label label-danger m-r-sm" ng-cloak>{{revision.old}}</span>
+                                                <span class="pull-left m-r-sm"><i class="fa fa-long-arrow-right"></i></span>
+                                                <span class="pull-left label label-success" ng-cloak>{{revision.new}}</span>
+                                            </div>
+                                            <div class="line bg-light" ng-hide="revision.comment"></div>
+                                            <div class="clearfix" ng-show="revision.comment">
+                                                <small class="block pull-left" ng-cloak>{{revision.user}}</small>
+                                                <small class="pull-right block" ng-cloak><i class="fa fa-clock-o"></i> {{revision.date| dateToISO | date:'MMM dd yyyy HH:mm'}}</small>
+                                            </div>
+                                             <div class="block clearfix" ng-show="revision.comment">
+                                                <small>Comment:</small>
+                                                 <span class=" label label-success m-r-sm" ng-cloak>{{translation[revision.label.toUpperCase()]}}</span>
+                                             </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </section>
+                        </section>
+                    </aside>
+                </section>
+            </section>
+        </section>
+        <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen" data-target="#nav"></a>
+    </section>
+</section>
+
